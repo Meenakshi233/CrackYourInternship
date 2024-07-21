@@ -1,2 +1,2 @@
 # CrackYourInternship
-this repo maintains my the update of my progress of 45 days challenge.
+This repo maintains the update of my progress in 45 days DSA challenge.
