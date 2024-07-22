@@ -1,0 +1,57 @@
+class Solution {
+public:
+    int subarraysDivByK(vector<int>& nums, int k) {
+
+        // brute force approach
+        int count = 0;
+        for(int i=0; i<nums.size(); i++){
+            int sum = 0;
+            for(int j=i; j<nums.size(); j++){
+                sum += nums[j];
+                if(sum % k == 0){
+                    count++;
+                }
+            }
+        }
+        return count;
+
+        // better approach
+        int count = 0;
+        for(int i=1; i<nums.size(); i++){
+            nums[i] += nums[i-1];
+        }
+        for(int i=0; i<nums.size(); i++){
+            for(int j=i; j<nums.size(); j++){
+                int sum = (i==0)? nums[j] : nums[j]-nums[i-1];
+                if(sum%k==0){
+                    count++;
+                }
+            }
+        }
+        return count;
+
+        // optimal approach
+        unordered_map<int,int> mp;
+        int res = 0;
+        int sum = 0;
+        mp[0] = 1;
+        for(auto it : nums){
+            sum += it;
+            int rem = sum%k;
+            if(rem<0){
+                rem += k;
+                if(mp[rem] != 0){
+                    res += mp[rem];
+                }
+                mp[rem]++;
+            }
+            else{
+                if(mp[rem] != 0){
+                    res += mp[rem];
+                }
+                mp[rem]++;
+            }
+        }
+        return res;
+    }
+};
