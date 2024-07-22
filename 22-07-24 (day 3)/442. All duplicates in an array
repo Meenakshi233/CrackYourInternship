@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<int> findDuplicates(vector<int>& nums) {
+
+        // brute force approach 2
+        sort(nums.begin(), nums.end());
+        int element = nums[0];
+        vector<int> ans;
+        for(int i=1; i<nums.size(); i++){
+            if(nums[i] == element){
+                ans.push_back(nums[i]);
+            }
+            element = nums[i];
+        }
+        return ans;
+
+        // optimal approach 
+        vector<int> result;
+        for(int i=0; i<nums.size(); i++){
+            int number = abs(nums[i]);
+            int idx = number-1;
+            if(nums[idx]<0){
+                result.push_back(number);
+            }
+            else{
+                nums[idx] *= -1;
+            }
+        }
+        return result;
+    }
+};
